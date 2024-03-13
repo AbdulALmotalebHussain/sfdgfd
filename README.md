@@ -125,3 +125,33 @@ Constructs the app by setting up UI components and registering the app.
 ```matlab
 function app = ImageCompression
    
+```matlab
+    createComponents(app)
+    registerApp(app, app.UIFigure)
+    if nargout == 0
+        clear app
+    end
+end
+```
+- This section of the constructor finishes setting up the app. It calls `createComponents` to initialize the UI components, registers the app with the App Designer framework using `registerApp`, and clears the app variable if no output is required.
+
+**Destructor:**
+
+```matlab
+function delete(app)
+    delete(app.UIFigure)
+end
+```
+- The destructor ensures that when an instance of the `ImageCompression` app is deleted, its main UI figure is also properly disposed of. This helps in managing the app's lifecycle and in releasing resources.
+
+### Explanation and Summary
+
+The `ImageCompression` app defined in the provided code showcases a practical application of MATLAB's App Designer for image processing tasks. The class structure is well-organized into properties (both public for UI components and private for internal data), callback methods responding to user interactions, component initialization for setting up the GUI, and app lifecycle management through the constructor and destructor.
+
+Each method is designed to handle specific user actions:
+- **`getImageButtonPushed`** allows users to select and display an image, showing its file size.
+- **`STARTEZWButtonPushed`**, **`start_SPIHTPushed`**, and **`start_JPEGButtonPushed`** are designed to compress the image using different algorithms (EZW, SPIHT, and JPEG respectively), displaying the compressed image, and updating the GUI with metrics such as compression ratio, bits per pixel, mean squared error, peak signal-to-noise ratio, and the compression time.
+
+The use of global variables like `a` (for storing the original image) and `fileSizeKB1` (for storing the original file size in kilobytes) facilitates data sharing between these methods. However, an object-oriented approach could further encapsulate these into the class properties, improving data handling and making the code more modular.
+
+This comprehensive structure not only facilitates learning about GUI development in MATLAB but also offers a practical understanding of image compression techniques and their implementation.
